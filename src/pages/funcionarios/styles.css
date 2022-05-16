@@ -1,0 +1,8 @@
+/* table border */
+.table-bordered {
+  border: 1px solid #ddd;
+}
+
+.table-bordered > thead > tr > th {
+}
+
