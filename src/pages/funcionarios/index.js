@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import api from '../../services/api';
 import './styles.css';
 
-export default function Funcionarios(){
+export default function Funcionarios({ history }) {
     const [funcionarios, setFuncionarios] = useState([]);
 
     useEffect(() => {
@@ -14,10 +14,18 @@ export default function Funcionarios(){
         }
 
         loadFuncionarios();
-    }, []);
+    }, [funcionarios]);
 
     async function editar(id) {
         await localStorage.setItem('id', id);
+
+        history.push('/funcionario/edit');
+    }
+
+    async function deletar(id) {
+        await api.delete(`/funcionario?id=${id}`);
+
+        alert('Funcionário deletado com sucesso!');
     }
 
     return (
@@ -55,8 +63,8 @@ export default function Funcionarios(){
                         <td>{value.cidade}</td>
                         <td>{value.estado}</td>
                         <td>{value.id_equipe}</td>
-                        <td><button onClick={editar(value.id)}>ed</button></td>
-                        <td><button>de</button></td>
+                        <td><button onClick={() => editar(value.id)}>ed</button></td>
+                        <td><button onClick={() => deletar(value.id)} >del</button></td>
                     </tr>
                 ))}
                 </tbody>

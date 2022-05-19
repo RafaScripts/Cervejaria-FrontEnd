@@ -44,7 +44,7 @@ export default function Createfuncionario({ history }) {
     }
 
     return(
-        <div>
+        <div className='ody'>
             <header>
                 <h2>cervSYS</h2>
                 <Link to="/">Home</Link>
