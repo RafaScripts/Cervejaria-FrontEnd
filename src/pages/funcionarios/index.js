@@ -29,16 +29,16 @@ export default function Funcionarios({ history }) {
     }
 
     return (
-        <div>
+        <div className='main'>
             <header>
                 <h3>CervSYS</h3>
                 <Link to="/">Home</Link>
                 <Link to="/funcionario/create">Cadastrar Funcionário</Link>
             </header>
 
-            <table className='table-bordered'>
+            <table className='table'>
                 <thead>
-                    <tr>
+                    <tr className='table' >
                         <th>ID</th>
                         <th>Nome</th>
                         <th>E-mail</th>
@@ -54,12 +54,13 @@ export default function Funcionarios({ history }) {
                 </thead>
                 <tbody>
                 {funcionarios.map(value => (
-                    <tr key={value.id}>
+                    <tr className='table' key={value.id}>
                         <td>{value.id}</td>
                         <td>{value.nome}</td>
                         <td>{value.email}</td>
                         <td>{value.cpf}</td>
                         <td>{value.Rua}</td>
+                        <td>{value.numero}</td>
                         <td>{value.cidade}</td>
                         <td>{value.estado}</td>
                         <td>{value.id_equipe}</td>

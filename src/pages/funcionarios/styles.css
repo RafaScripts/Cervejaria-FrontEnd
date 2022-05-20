@@ -1,8 +1,16 @@
-/* table border */
-.table-bordered {
-  border: 1px solid #ddd;
+/* all items in the center of the page, in table format */
+.main {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+  text-align: center;
 }
 
-.table-bordered > thead > tr > th {
+/* table with collapsed edges */
+.table {
+  border: 1px solid black;
+  border-collapse:collapse;
+  width: 100%;
 }
+
 
