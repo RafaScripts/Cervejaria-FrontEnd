@@ -2,10 +2,13 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import './styles.css';
+import name from "../../config/names";
+import { FiFileText, FiArrowLeftCircle } from 'react-icons/fi';
 
 export default function EditarFuncionario({ history }) {
     const [funcionario, setFuncionario] = useState([]);
     const [nome, setNome] = useState('');
+    const [telefone, setTelefone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -28,6 +31,7 @@ export default function EditarFuncionario({ history }) {
     const data = {
         nome,
         email,
+        telefone,
         password,
         username,
         cpf,
@@ -54,14 +58,17 @@ export default function EditarFuncionario({ history }) {
 
     return(
         <div>
-            <header>
-                <h2>cervSYS</h2>
-                <Link to="/">Home</Link>
+            <header className='header'>
+                <h3><a className='home' href='/'>{name}</a></h3>
+                <Link className='button' to="/"><FiArrowLeftCircle /> Voltar</Link>
             </header>
 
+            <h2 className='title'>Editar Funcionario</h2>
+
             {funcionario.map(value => (
-                <form key={value.id} onSubmit={ handleSubmit }>
+                <form className='form' key={value.id} onSubmit={ handleSubmit }>
                     <input type='text' placeholder={value.nome} value={nome} onChange={e => setNome(e.target.value)}/>
+                    <input type='text' placeholder={value.telefone} value={telefone} onChange={e => setTelefone(e.target.value)}/>
                     <input type='text' placeholder={value.email} value={email} onChange={e => setEmail(e.target.value)}/>
                     <input type='text' placeholder={value.username} value={username} onChange={e => setUsername(e.target.value)}/>
                     <input type='text' placeholder='Nova Senha' value={password} onChange={e => setPassword(e.target.value)}/>
@@ -72,7 +79,7 @@ export default function EditarFuncionario({ history }) {
                     <input type='text' placeholder={value.cidade} value={cidade} onChange={e => setCidade(e.target.value)}/>
                     <input type='text' placeholder={value.cep} value={cep} onChange={e => setCep(e.target.value)}/>
                     <input type='number' placeholder={value.id_equipe} value={id} onChange={e => setId(e.target.value)}/>
-                    <button type='submit'>Editar</button>
+                    <button className='button' type='submit'><FiFileText /> Editar</button>
                 </form>
             ))}
 

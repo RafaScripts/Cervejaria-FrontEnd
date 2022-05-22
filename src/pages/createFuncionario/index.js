@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
+import { FiArrowLeftCircle, FiPlus } from 'react-icons/fi';
 import api from '../../services/api';
+import name from '../../config/names.js';
 import './styles.css';
 
 export default function Createfuncionario({ history }) {
     const [nome, setNome] = useState('');
+    const [telefone, setTelefone] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [username, setUsername] = useState('');
@@ -19,6 +22,7 @@ export default function Createfuncionario({ history }) {
     const data = {
         nome,
         email,
+        telefone,
         password,
         username,
         cpf,
@@ -44,17 +48,20 @@ export default function Createfuncionario({ history }) {
     }
 
     return(
-        <div className='ody'>
-            <header>
-                <h2>cervSYS</h2>
-                <Link to="/">Home</Link>
+        <div>
+            <header className='header'>
+                <h3><a className='home' href='/'>{name}</a></h3>
+                <Link className='button' to="/"><FiArrowLeftCircle /> Voltar</Link>
             </header>
 
-            <form onSubmit={ handleSubmit }>
+            <h2 className='title'>Cadastrar Funcionario</h2>
+
+            <form className='form' onSubmit={ handleSubmit }>
                 <input type='text' placeholder='Nome completo' value={nome} onChange={e => setNome(e.target.value)}/>
                 <input type='text' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)}/>
+                <input type='text' placeholder='Telefone' value={telefone} onChange={e => setTelefone(e.target.value)}/>
                 <input type='text' placeholder='username' value={username} onChange={e => setUsername(e.target.value)}/>
-                <input type='text' placeholder='Senha' value={password} onChange={e => setPassword(e.target.value)}/>
+                <input type='password' placeholder='Senha' value={password} onChange={e => setPassword(e.target.value)}/>
                 <input type='text' placeholder='cpf' value={cpf} onChange={e => setCpf(e.target.value)}/>
                 <input type='text' placeholder='Rua' value={Rua} onChange={e => setRua(e.target.value)}/>
                 <input type='text' placeholder='Número' value={numero} onChange={e => setNumero(e.target.value)}/>
@@ -62,7 +69,7 @@ export default function Createfuncionario({ history }) {
                 <input type='text' placeholder='Cidade' value={cidade} onChange={e => setCidade(e.target.value)}/>
                 <input type='text' placeholder='CEP' value={cep} onChange={e => setCep(e.target.value)}/>
                 <input type='number' placeholder='ID Equipe' value={id} onChange={e => setId(e.target.value)}/>
-                <button type='submit'>Cadastrar</button>
+                <button className='button' type='submit'><FiPlus /> Cadastrar</button>
             </form>
         </div>
     );

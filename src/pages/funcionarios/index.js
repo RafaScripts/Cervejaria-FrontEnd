@@ -1,7 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { FiFileText, FiTrash2, FiPlus } from 'react-icons/fi';
 import api from '../../services/api';
 import './styles.css';
+import name from '../../config/names.js';
 
 export default function Funcionarios({ history }) {
     const [funcionarios, setFuncionarios] = useState([]);
@@ -30,17 +32,20 @@ export default function Funcionarios({ history }) {
 
     return (
         <div className='main'>
-            <header>
-                <h3>CervSYS</h3>
-                <Link to="/">Home</Link>
-                <Link to="/funcionario/create">Cadastrar Funcionário</Link>
+            <header className='header'>
+                <h3><a className='home' href='/'>{name}</a></h3>
+                <Link className='button' to="/funcionario/create"><FiPlus /> Cadastrar Funcionário</Link>
             </header>
 
-            <table className='table'>
-                <thead>
+            <h2 className='title'>Funcionarios</h2>
+
+            <div className='tb'>
+                <table className='table'>
+                    <thead>
                     <tr className='table' >
                         <th>ID</th>
                         <th>Nome</th>
+                        <th>Telefone</th>
                         <th>E-mail</th>
                         <th>cpf</th>
                         <th>Rua</th>
@@ -51,25 +56,27 @@ export default function Funcionarios({ history }) {
                         <th>editar</th>
                         <th>deletar</th>
                     </tr>
-                </thead>
-                <tbody>
-                {funcionarios.map(value => (
-                    <tr className='table' key={value.id}>
-                        <td>{value.id}</td>
-                        <td>{value.nome}</td>
-                        <td>{value.email}</td>
-                        <td>{value.cpf}</td>
-                        <td>{value.Rua}</td>
-                        <td>{value.numero}</td>
-                        <td>{value.cidade}</td>
-                        <td>{value.estado}</td>
-                        <td>{value.id_equipe}</td>
-                        <td><button onClick={() => editar(value.id)}>ed</button></td>
-                        <td><button onClick={() => deletar(value.id)} >del</button></td>
-                    </tr>
-                ))}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                    {funcionarios.map(value => (
+                        <tr className='table' key={value.id}>
+                            <td>{value.id}</td>
+                            <td>{value.nome}</td>
+                            <td>{value.telefone}</td>
+                            <td>{value.email}</td>
+                            <td>{value.cpf}</td>
+                            <td>{value.Rua}</td>
+                            <td>{value.numero}</td>
+                            <td>{value.cidade}</td>
+                            <td>{value.estado}</td>
+                            <td>{value.id_equipe}</td>
+                            <td><button className='ed' onClick={() => editar(value.id)}><FiFileText /></button></td>
+                            <td><button className='del' onClick={() => deletar(value.id)} ><FiTrash2 /></button></td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }
