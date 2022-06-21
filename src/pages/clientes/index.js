@@ -5,40 +5,36 @@ import api from '../../services/api';
 import './styles.css';
 import name from '../../config/names.js';
 
-
-
-export default function Funcionarios({ history }) {
-    const [funcionarios, setFuncionarios] = useState([]);
-
-
+export default function Clientes({ history }) {
+    const [clientes, setClientes] = useState([]);
 
     useEffect(() => {
-        async function loadFuncionarios() {
-            const response = await api.get('/funcionario');
+        async function loadClientes() {
+            const response = await api.get('/cliente');
 
-            setFuncionarios(response.data);
+            setClientes(response.data);
         }
 
-        loadFuncionarios();
-    }, [funcionarios]);
+        loadClientes();
+    }, [clientes]);
 
     async function editar(id) {
         await localStorage.setItem('id', id);
 
-        history.push('/funcionario/edit');
+        history.push('/cliente/edit');
     }
 
     async function deletar(id) {
-        await api.delete(`/funcionario?id=${id}`);
+        await api.delete(`/cliente?id=${id}`);
 
-        alert('Funcionário deletado com sucesso!');
+        alert('Cliente deletado com sucesso!');
     }
 
     return (
         <div className='main'>
             <header className='header'>
                 <h3><a className='home' href='/'>{name}</a></h3>
-                <Link className='button' to="/funcionario/create"><FiPlus /> Cadastrar Funcionário</Link>
+                <Link className='button' to="/cliente/create"><FiPlus /> Cadastrar Cliente</Link>
             </header>
 
             <h2 className='title'>Funcionarios</h2>
@@ -56,13 +52,12 @@ export default function Funcionarios({ history }) {
                         <th>Número</th>
                         <th>cidade</th>
                         <th>estado</th>
-                        <th>equipe</th>
                         <th>editar</th>
                         <th>deletar</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {funcionarios.map((value, index) => (
+                    {clientes.map(value => (
                         <tr className='table' key={value.id}>
                             <td>{value.id}</td>
                             <td>{value.nome}</td>
@@ -73,7 +68,6 @@ export default function Funcionarios({ history }) {
                             <td>{value.numero}</td>
                             <td>{value.cidade}</td>
                             <td>{value.estado}</td>
-                            <td>{value.id_equipe}</td>
                             <td><button className='ed' onClick={() => editar(value.id)}><FiFileText /></button></td>
                             <td><button className='del' onClick={() => deletar(value.id)} ><FiTrash2 /></button></td>
                         </tr>
@@ -84,5 +78,3 @@ export default function Funcionarios({ history }) {
         </div>
     );
 }
-
-
