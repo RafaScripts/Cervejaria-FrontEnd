@@ -44,10 +44,10 @@ export default function CreateEquipe({ history }) {
                 <h2 className='title'>Cadastrar Equipe</h2>
     
                 <form className='form' onSubmit={ handleSubmit }>
-                    <input type='text' placeholder='Nome Equipe' value={nome} onChange={e => setNome_equipe(e.target.value)}/>
-                    <input type='text' placeholder='Região' value={email} onChange={e => setRegiao(e.target.value)}/>
-                    <input type='text' placeholder='Gerente' value={username} onChange={e => setGerente(e.target.value)}/>
-                    <input type='text' placeholder='ID Equipe' value={cidade} onChange={e => setId_equipe(e.target.value)}/>
+                    <input type='text' placeholder='Nome Equipe' value={nome_equipe} onChange={e => setNome_equipe(e.target.value)}/>
+                    <input type='text' placeholder='Região' value={regiao} onChange={e => setRegiao(e.target.value)}/>
+                    <input type='text' placeholder='Gerente' value={gerente} onChange={e => setGerente(e.target.value)}/>
+                    <input type='text' placeholder='ID Equipe' value={id_equipe} onChange={e => setId_equipe(e.target.value)}/>
                     <button className='button' type='submit'><FiPlus /> Cadastrar Equipe</button>
                 </form>
             </div>
