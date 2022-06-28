@@ -38,20 +38,24 @@ export default function Createfuncionario({ history }) {
         e.preventDefault();
 
         try{
-            await api.post('/funcionario', data);
+            await api.post('/funcionario', data, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
             alert('Funcionario cadastrado com sucesso!');
         }catch (e) {
             alert(e);
         }
 
-        history.push('/');
+        history.push('/funcionarios');
     }
 
     return(
         <div>
             <header className='header'>
-                <h3><a className='home' href='/'>{name}</a></h3>
-                <Link className='button' to="/"><FiArrowLeftCircle /> Voltar</Link>
+                <h3><a className='home' href='/home'>{name}</a></h3>
+                <Link className='button' to="/funcionarios"><FiArrowLeftCircle /> Voltar</Link>
             </header>
 
             <h2 className='title'>Cadastrar Funcionario</h2>

@@ -19,7 +19,11 @@ export default function EditarCliente({ history }) {
     const [id, setId] = useState(Number);
 
     async function loadCliente(){
-        const response = await api.get(`/cliente?id=${localStorage.getItem('id')}`);
+        const response = await api.get(`/cliente?id=${localStorage.getItem('id')}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
 
         setCliente(response.data);
     }
@@ -42,25 +46,29 @@ export default function EditarCliente({ history }) {
         e.preventDefault();
 
         try{
-            await api.put(`/cliente?id=${localStorage.getItem('id')}`, data);
+            await api.put(`/cliente?id=${localStorage.getItem('id')}`, data, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
             alert('Cliente editado com sucesso!');
         }catch (e) {
             alert(e);
         }
 
-        history.push('/');
+        history.push('/clientes');
     }
 
     return(
         <div>
             <header className='header'>
-                <h3><a className='home' href='/'>{name}</a></h3>
-                <Link className='button' to="/"><FiArrowLeftCircle /> Voltar</Link>
+                <h3><a className='home' href='/home'>{name}</a></h3>
+                <Link className='button' to="/clientes"><FiArrowLeftCircle /> Voltar</Link>
             </header>
 
             <h2 className='title'>Editar Cliente</h2>
 
-            {funcionario.map(value => (
+            {cliente.map(value => (
                 <form className='form' key={value.id} onSubmit={ handleSubmit }>
                     <input type='text' placeholder={value.nome} value={nome} onChange={e => setNome(e.target.value)}/>
                     <input type='text' placeholder={value.telefone} value={telefone} onChange={e => setTelefone(e.target.value)}/>
@@ -71,6 +79,7 @@ export default function EditarCliente({ history }) {
                     <input type='text' placeholder={value.estado} value={estado} onChange={e => setEstado(e.target.value)}/>
                     <input type='text' placeholder={value.cidade} value={cidade} onChange={e => setCidade(e.target.value)}/>
                     <input type='text' placeholder={value.cep} value={cep} onChange={e => setCep(e.target.value)}/>
+                    <button className='button' type='submit'><FiFileText /> Editar</button>
                 </form>
             ))}
 

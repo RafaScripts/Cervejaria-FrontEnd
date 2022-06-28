@@ -14,7 +14,12 @@ export default function Funcionarios({ history }) {
 
     useEffect(() => {
         async function loadFuncionarios() {
-            const response = await api.get('/funcionario');
+            const token = localStorage.getItem('token');
+            const response = await api.get('/funcionario', {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
 
             setFuncionarios(response.data);
         }
@@ -37,7 +42,7 @@ export default function Funcionarios({ history }) {
     return (
         <div className='main'>
             <header className='header'>
-                <h3><a className='home' href='/'>{name}</a></h3>
+                <h3><a className='home' href='/home'>{name}</a></h3>
                 <Link className='button' to="/funcionario/create"><FiPlus /> Cadastrar Funcionário</Link>
             </header>
 
@@ -73,7 +78,7 @@ export default function Funcionarios({ history }) {
                             <td>{value.numero}</td>
                             <td>{value.cidade}</td>
                             <td>{value.estado}</td>
-                            <td>{value.id_equipe}</td>
+                            <td>{value.nome_equipe}</td>
                             <td><button className='ed' onClick={() => editar(value.id)}><FiFileText /></button></td>
                             <td><button className='del' onClick={() => deletar(value.id)} ><FiTrash2 /></button></td>
                         </tr>

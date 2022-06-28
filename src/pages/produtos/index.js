@@ -5,47 +5,48 @@ import api from '../../services/api';
 import './styles.css';
 import name from '../../config/names.js';
 
-export default function Clientes({ history }) {
-    const [clientes, setClientes] = useState([]);
+
+
+export default function Produtos({ history }) {
+    const [produtos, setProdutos] = useState([]);
+
+
 
     useEffect(() => {
-        async function loadClientes() {
-            const response = await api.get('/cliente', {
+        async function loadProdutos() {
+            const token = localStorage.getItem('token');
+            const response = await api.get('/produtos', {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    Authorization: `Bearer ${token}`
                 }
             });
 
-            setClientes(response.data);
+            setProdutos(response.data);
         }
 
-        loadClientes();
-    }, [clientes]);
+        loadProdutos();
+    }, [produtos]);
 
     async function editar(id) {
-        await localStorage.setItem('id', id);
+        await localStorage.setItem('idProduto', id);
 
-        history.push('/cliente/edit');
+        history.push('/produto/edit');
     }
 
     async function deletar(id) {
-        await api.delete(`/cliente?id=${id}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            }
-        });
+        await api.delete(`/produto?id=${id}`);
 
-        alert('Cliente deletado com sucesso!');
+        alert('Funcionário deletado com sucesso!');
     }
 
     return (
         <div className='main'>
             <header className='header'>
                 <h3><a className='home' href='/home'>{name}</a></h3>
-                <Link className='button' to="/cliente/create"><FiPlus /> Cadastrar Cliente</Link>
+                <Link className='button' to="/produto/create"><FiPlus /> Cadastrar produto</Link>
             </header>
 
-            <h2 className='title'>Funcionarios</h2>
+            <h2 className='title'>Produtos</h2>
 
             <div className='tb'>
                 <table className='table'>
@@ -53,29 +54,25 @@ export default function Clientes({ history }) {
                     <tr className='table' >
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>E-mail</th>
-                        <th>cpf</th>
-                        <th>Rua</th>
-                        <th>Número</th>
-                        <th>cidade</th>
-                        <th>estado</th>
+                        <th>Preço</th>
+                        <th>Comissão</th>
+                        <th>Descrição</th>
+                        <th>Estoque</th>
+                        <th><FiPlus /> Estoque</th>
                         <th>editar</th>
                         <th>deletar</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {clientes.map(value => (
+                    {produtos.map((value, index) => (
                         <tr className='table' key={value.id}>
                             <td>{value.id}</td>
                             <td>{value.nome}</td>
-                            <td>{value.telefone}</td>
-                            <td>{value.email}</td>
-                            <td>{value.cpf}</td>
-                            <td>{value.Rua}</td>
-                            <td>{value.numero}</td>
-                            <td>{value.cidade}</td>
-                            <td>{value.estado}</td>
+                            <td>{value.price}</td>
+                            <td>{value.commission}%</td>
+                            <td>{value.description}</td>
+                            <td>{value.quantidade}</td>
+                            <td><button className={'ed'} onClick={() => {}}><FiPlus/> Estoque</button></td>
                             <td><button className='ed' onClick={() => editar(value.id)}><FiFileText /></button></td>
                             <td><button className='del' onClick={() => deletar(value.id)} ><FiTrash2 /></button></td>
                         </tr>
@@ -86,3 +83,5 @@ export default function Clientes({ history }) {
         </div>
     );
 }
+
+

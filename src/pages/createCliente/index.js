@@ -33,20 +33,24 @@ export default function CreateCliente({ history }) {
         e.preventDefault();
 
         try{
-            await api.post('/cliente', data);
+            await api.post('/cliente', data, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            });
             alert('Cliente cadastrado com sucesso!');
         }catch (e) {
             alert(e);
         }
 
-        history.push('/');
+        history.push('/clientes');
     }
 
     return(
         <div>
             <header className='header'>
-                <h3><a className='home' href='/'>{name}</a></h3>
-                <Link className='button' to="/"><FiArrowLeftCircle /> Voltar</Link>
+                <h3><a className='home' href='/home'>{name}</a></h3>
+                <Link className='button' to="/clientes"><FiArrowLeftCircle /> Voltar</Link>
             </header>
 
             <h2 className='title'>Cadastrar Cliente</h2>

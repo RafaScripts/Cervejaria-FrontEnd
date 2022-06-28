@@ -12,7 +12,12 @@ export default function Equipe({ history }) {
 
     useEffect(() => {
         async function loadEquipe() {
-            const response = await api.get('/equipe');
+            const token = localStorage.getItem('token');
+            const response = await api.get('/equipe', {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            });
 
             setEquipe(response.data);
         }
@@ -21,20 +26,24 @@ export default function Equipe({ history }) {
     }, [equipe]);
 
     async function editar(id) {
-        await localStorage.setItem('id', id);
+        await localStorage.setItem('idEquipe', id);
 
         history.push('/equipe/edit');
     }
 
     async function deletar(id) {
-        await api.delete(`/equipe?id=${id}`);
+        await api.delete(`/equipe?id=${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
 
         alert('Equipe Deletada !');
     }
     return (
         <div className='main'>
             <header className='header'>
-                <h3><a className='home' href='/'>{name}</a></h3>
+                <h3><a className='home' href='/home'>{name}</a></h3>
                 <Link className='button' to="/equipe/create"><FiPlus /> Cadastrar Equipe</Link>
             </header>
 
@@ -59,13 +68,10 @@ export default function Equipe({ history }) {
                         <td>{value.nome_equipe}</td>
                         <td>{value.regiao}</td>
                         <td>{value.gerente}</td>
-                        <td>{value.id_equipe}</td>
+                        <td>{value.id}</td>
                         <td><button className='ed' onClick={() => editar(value.id)}><FiFileText /></button></td>
                         <td><button className='del' onClick={() => deletar(value.id)} ><FiTrash2 /></button></td>
                     </tr>
-
-
-
                     ))}
                     </tbody>
                 </table>

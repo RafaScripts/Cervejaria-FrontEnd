@@ -80,3 +80,9 @@
     filter: brightness(80%);
 }
 
+.item {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 8px;
+}

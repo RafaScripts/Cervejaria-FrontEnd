@@ -21,7 +21,12 @@ export default function EditarFuncionario({ history }) {
     const [id, setId] = useState(Number);
 
     async function loadFuncionario(){
-        const response = await api.get(`/funcionario?id=${localStorage.getItem('id')}`);
+        const token = localStorage.getItem('token');
+        const response = await api.get(`/funcionario?id=${localStorage.getItem('id')}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
 
         setFuncionario(response.data);
     }
@@ -60,7 +65,7 @@ export default function EditarFuncionario({ history }) {
         <div>
             <header className='header'>
                 <h3><a className='home' href='/'>{name}</a></h3>
-                <Link className='button' to="/"><FiArrowLeftCircle /> Voltar</Link>
+                <Link className='button' to="/funcionarios"><FiArrowLeftCircle /> Voltar</Link>
             </header>
 
             <h2 className='title'>Editar Funcionario</h2>
