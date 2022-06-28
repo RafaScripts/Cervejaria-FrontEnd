@@ -14,6 +14,8 @@ import CreateCliente from "./pages/createCliente";
 import EditarCliente from "./pages/editarCliente";
 import produtos from "./pages/produtos";
 import EditarProduto from "./pages/editarProduto";
+import CreateProduto from "./pages/createProduto";
+import AddEstoque from "./pages/addEstoque";
 
 export default function Routes(){
     return (
@@ -31,8 +33,9 @@ export default function Routes(){
                 <Route path={'/cliente/create'} component={CreateCliente} />
                 <Route path={'/cliente/edit'} component={EditarCliente} />
                 <Route path={'/produtos'} exact component={produtos} />
-                <Route path={'/produto/create'} />
+                <Route path={'/produto/create'} component={CreateProduto} />
                 <Route path={'/produto/edit'} component={EditarProduto} />
+                <Route path={'/produto/estoque'} component={AddEstoque} />
             </Switch>
         </BrowserRouter>
     );

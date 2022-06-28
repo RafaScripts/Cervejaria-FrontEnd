@@ -25,7 +25,7 @@ export default function Produtos({ history }) {
         }
 
         loadProdutos();
-    }, [produtos]);
+    });
 
     async function editar(id) {
         await localStorage.setItem('idProduto', id);
@@ -33,10 +33,20 @@ export default function Produtos({ history }) {
         history.push('/produto/edit');
     }
 
-    async function deletar(id) {
-        await api.delete(`/produto?id=${id}`);
+    async function addEstoque(id_estoque) {
+        await localStorage.setItem('idEstoque', id_estoque);
 
-        alert('Funcionário deletado com sucesso!');
+        history.push('/produto/estoque');
+    }
+
+    async function deletar(id) {
+        await api.delete(`/produtos?id=${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            }
+        });
+
+        alert('Produto deletado com sucesso!');
     }
 
     return (
@@ -72,7 +82,7 @@ export default function Produtos({ history }) {
                             <td>{value.commission}%</td>
                             <td>{value.description}</td>
                             <td>{value.quantidade}</td>
-                            <td><button className={'ed'} onClick={() => {}}><FiPlus/> Estoque</button></td>
+                            <td><button className={'ed'} onClick={() => addEstoque(value.id_estoque)}><FiPlus/> Estoque</button></td>
                             <td><button className='ed' onClick={() => editar(value.id)}><FiFileText /></button></td>
                             <td><button className='del' onClick={() => deletar(value.id)} ><FiTrash2 /></button></td>
                         </tr>
