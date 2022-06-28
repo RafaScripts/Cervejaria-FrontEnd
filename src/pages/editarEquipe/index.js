@@ -73,9 +73,9 @@ export default function EditarEquipe({ history }) {
                 {
                     equipe.map(equipe => (
                         <form className={'form'} onSubmit={handleSubmit} key={equipe.id}>
-                            <input type='text' value={nome_equipe} onChange={e => setNome_equipe(e.target.value)} placeholder={equipe.nome_equipe}/>
-                            <input type='text' value={regiao} onChange={e => setRegiao(e.target.value)} placeholder={equipe.regiao} />
-                            <input type='text' value={gerente} onChange={e => setGerente(e.target.value)} placeholder={equipe.gerente}/>
+                            <input required type='text' value={nome_equipe} onChange={e => setNome_equipe(e.target.value)} placeholder={equipe.nome_equipe}/>
+                            <input required type='text' value={regiao} onChange={e => setRegiao(e.target.value)} placeholder={equipe.regiao} />
+                            <input required type='text' value={gerente} onChange={e => setGerente(e.target.value)} placeholder={equipe.gerente}/>
                             <button className={'button'} type='submit'><FiFileText /> editar</button>
                         </form>
                     ))
