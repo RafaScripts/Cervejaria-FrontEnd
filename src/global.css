@@ -12,7 +12,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-.title {
+h2 {
     color: #fff;
     padding-top: 30px;
     padding-left: 30px;

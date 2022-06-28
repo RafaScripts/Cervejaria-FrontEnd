@@ -45,7 +45,7 @@ export default function Clientes({ history }) {
                 <Link className='button' to="/cliente/create"><FiPlus /> Cadastrar Cliente</Link>
             </header>
 
-            <h2 className='title'>Funcionarios</h2>
+            <h2 className='title'>Cliente</h2>
 
             <div className='tb'>
                 <table className='table'>
