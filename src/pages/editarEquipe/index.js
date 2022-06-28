@@ -14,34 +14,45 @@ export default function EditarEquipe({ history }) {
 
 
     async function loadEquipe(){
-        const response = await api.get(`/equipe?id=${localStorage.getItem('idEquipe')}`, {
+        await api.get(`/equipe?id=${localStorage.getItem('idEquipe')}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
+        }).then(response => {
+            if(response.status === 400){
+                alert('Erro ao carregar equipe');
+            }
+            setEquipe(response.data);
+        }).catch(error => {
+            alert('Erro ao carregar equipe' + error);
         });
-
-        setEquipe(response.data);
     }
 
     loadEquipe();
 
     const data = {
-        nome_equipe,
-            regiao,
-            gerente
-        };
+        nome_equipe: nome_equipe,
+        regiao: regiao,
+        gerente: gerente
+    };
+
+    console.log(data);
 
 
         async function handleSubmit(e){
             e.preventDefault();
     
             try{
-                await api.put(`/equipe?id=${localStorage.getItem('id')}`, data, {
+                await api.put(`/equipe?id=${localStorage.getItem('idEquipe')}`, data, {
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     }
-                });
-                alert('Equipe alterada!');
+                }).then(response => {
+                    if(response.status === 200){
+                        alert('Equipe editada com sucesso');
+                        history.push('/equipe');
+                    }
+                }).catch(err => alert('error' + err));
             }catch (e) {
                 alert(e);
             }
