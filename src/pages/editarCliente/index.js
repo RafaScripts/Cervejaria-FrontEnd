@@ -70,15 +70,15 @@ export default function EditarCliente({ history }) {
 
             {cliente.map(value => (
                 <form className='form' key={value.id} onSubmit={ handleSubmit }>
-                    <input type='text' placeholder={value.nome} value={nome} onChange={e => setNome(e.target.value)}/>
-                    <input type='text' placeholder={value.telefone} value={telefone} onChange={e => setTelefone(e.target.value)}/>
-                    <input type='text' placeholder={value.email} value={email} onChange={e => setEmail(e.target.value)}/>
-                    <input type='text' placeholder={value.cpf} value={cpf} onChange={e => setCpf(e.target.value)}/>
-                    <input type='text' placeholder={value.Rua} value={Rua} onChange={e => setRua(e.target.value)}/>
-                    <input type='text' placeholder={value.numero} value={numero} onChange={e => setNumero(e.target.value)}/>
-                    <input type='text' placeholder={value.estado} value={estado} onChange={e => setEstado(e.target.value)}/>
-                    <input type='text' placeholder={value.cidade} value={cidade} onChange={e => setCidade(e.target.value)}/>
-                    <input type='text' placeholder={value.cep} value={cep} onChange={e => setCep(e.target.value)}/>
+                    <input required type='text' placeholder={value.nome} value={nome} onChange={e => setNome(e.target.value)}/>
+                    <input required type='text' placeholder={value.telefone} value={telefone} onChange={e => setTelefone(e.target.value)}/>
+                    <input required type='text' placeholder={value.email} value={email} onChange={e => setEmail(e.target.value)}/>
+                    <input required type='text' placeholder={value.cpf} value={cpf} onChange={e => setCpf(e.target.value)}/>
+                    <input required type='text' placeholder={value.Rua} value={Rua} onChange={e => setRua(e.target.value)}/>
+                    <input required type='text' placeholder={value.numero} value={numero} onChange={e => setNumero(e.target.value)}/>
+                    <input required type='text' placeholder={value.estado} value={estado} onChange={e => setEstado(e.target.value)}/>
+                    <input required type='text' placeholder={value.cidade} value={cidade} onChange={e => setCidade(e.target.value)}/>
+                    <input required type='text' placeholder={value.cep} value={cep} onChange={e => setCep(e.target.value)}/>
                     <button className='button' type='submit'><FiFileText /> Editar</button>
                 </form>
             ))}

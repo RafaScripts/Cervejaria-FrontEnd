@@ -66,7 +66,7 @@ export default function Home({history}){
               <Link className='button' onClick={handleLogout}><FiPower /></Link>
           </header>
           <div>
-              <h2 className='title'>SysBeer</h2>
+              <h2 >CervSys</h2>
 
 
 
