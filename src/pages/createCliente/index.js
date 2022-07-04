@@ -59,7 +59,7 @@ export default function CreateCliente({ history }) {
                 <input required type='text' placeholder='Nome completo' value={nome} onChange={e => setNome(e.target.value)}/>
                 <input required type='text' placeholder='Email' value={email} onChange={e => setEmail(e.target.value)}/>
                 <input required type='text' placeholder='Telefone' value={telefone} onChange={e => setTelefone(e.target.value)}/>
-                <input required type='text' placeholder='cpf' value={cpf} onChange={e => setCpf(e.target.value)}/>
+                <input required type='text' placeholder='cpf / cnpj' value={cpf} onChange={e => setCpf(e.target.value)}/>
                 <input required type='text' placeholder='Rua' value={Rua} onChange={e => setRua(e.target.value)}/>
                 <input required type='text' placeholder='Número' value={numero} onChange={e => setNumero(e.target.value)}/>
                 <input required type='text' placeholder='Estado' value={estado} onChange={e => setEstado(e.target.value)}/>

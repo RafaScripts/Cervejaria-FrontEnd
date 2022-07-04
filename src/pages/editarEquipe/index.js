@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
 import './styles.css';
@@ -6,32 +6,48 @@ import name from "../../config/names";
 import { FiFileText, FiArrowLeftCircle } from 'react-icons/fi';
 
 export default function EditarEquipe({ history }) {
-    const [nome_equipe, setNome_equipe] = useState('');
+    const [nnome_equipe, setNnome_equipe] = useState('');
     const [regiao, setRegiao] = useState('');
     const [gerente, setGerente] = useState('');
-    const [hist_gerente, setHist_gerente] = useState('');
+    //const [hist_gerente, setHist_gerente] = useState('');
     const [equipe, setEquipe] = useState([]);
 
 
-    async function loadEquipe(){
-        await api.get(`/equipe?id=${localStorage.getItem('idEquipe')}`, {
-            headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`,
-            }
-        }).then(response => {
-            if(response.status === 400){
-                alert('Erro ao carregar equipe');
-            }
-            setEquipe(response.data);
-        }).catch(error => {
-            alert('Erro ao carregar equipe' + error);
-        });
-    }
+    useEffect(() => {
+        async function loadEquipe() {
+            await api.get(`/equipe?id=${localStorage.getItem('idEquipe')}`, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                }
+            }).then(async response => {
+                if (response.status === 400) {
+                    alert('Erro ao carregar equipe');
+                }
+                setEquipe(response.data);
 
-    loadEquipe();
+            }).catch(error => {
+                alert('Erro ao carregar equipe' + error);
+            });
+        }
+
+        loadEquipe();
+    }, []);
+
+    useEffect(() => {
+        async function loadDataValues() {
+            console.log(equipe);
+            setNnome_equipe(equipe[0].nome_equipe);
+            setRegiao(equipe[0].regiao);
+            setGerente(equipe[0].gerente);
+        }
+
+        loadDataValues();
+    }, [equipe]);
+
+
 
     const data = {
-        nome_equipe: nome_equipe,
+        nome_equipe: nnome_equipe,
         regiao: regiao,
         gerente: gerente
     };
@@ -60,7 +76,6 @@ export default function EditarEquipe({ history }) {
             history.push('/equipes');
         }
 
-
         return(
             <div>
                 <header className='header'>
@@ -73,7 +88,7 @@ export default function EditarEquipe({ history }) {
                 {
                     equipe.map(equipe => (
                         <form className={'form'} onSubmit={handleSubmit} key={equipe.id}>
-                            <input required type='text' value={nome_equipe} onChange={e => setNome_equipe(e.target.value)} placeholder={equipe.nome_equipe}/>
+                            <input required type='text' value={nnome_equipe} onChange={e => setNnome_equipe(e.target.value)} placeholder={equipe.nome_equipe}/>
                             <input required type='text' value={regiao} onChange={e => setRegiao(e.target.value)} placeholder={equipe.regiao} />
                             <input required type='text' value={gerente} onChange={e => setGerente(e.target.value)} placeholder={equipe.gerente}/>
                             <button className={'button'} type='submit'><FiFileText /> editar</button>

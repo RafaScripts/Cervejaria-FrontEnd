@@ -16,6 +16,7 @@ import produtos from "./pages/produtos";
 import EditarProduto from "./pages/editarProduto";
 import CreateProduto from "./pages/createProduto";
 import AddEstoque from "./pages/addEstoque";
+import Estoque from "./pages/estoque";
 
 export default function Routes(){
     return (
@@ -36,6 +37,7 @@ export default function Routes(){
                 <Route path={'/produto/create'} component={CreateProduto} />
                 <Route path={'/produto/edit'} component={EditarProduto} />
                 <Route path={'/produto/estoque'} component={AddEstoque} />
+                <Route path={'/estoque'} component={Estoque} />
             </Switch>
         </BrowserRouter>
     );

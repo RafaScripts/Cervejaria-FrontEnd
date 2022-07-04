@@ -2,50 +2,60 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { FiFileText, FiTrash2, FiPlus } from 'react-icons/fi';
 import api from '../../services/api';
+import moment from 'moment';
 import './styles.css';
 import name from '../../config/names.js';
 
-export default function Clientes({ history }) {
-    const [clientes, setClientes] = useState([]);
+
+
+export default function Estoque({ history }) {
+    const [Estoque, setEstoque] = useState([]);
+
+
 
     useEffect(() => {
-        async function loadClientes() {
-            const response = await api.get('/cliente', {
+        async function loadEstoque() {
+            const token = localStorage.getItem('token');
+            const response = await api.get('/estoque', {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    Authorization: `Bearer ${token}`
                 }
             });
 
-            setClientes(response.data);
+            setEstoque(response.data);
         }
 
-        loadClientes();
-    }, [clientes]);
+        loadEstoque();
+    });
 
     async function editar(id) {
-        await localStorage.setItem('id', id);
+        await localStorage.setItem('idEstoque', id);
 
-        history.push('/cliente/edit');
+        history.push('/produto/edit');
     }
 
     async function deletar(id) {
-        await api.delete(`/cliente?id=${id}`, {
+        const response = await api.delete(`/estoque?id=${id}`, {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem('token')}`,
             }
         });
 
-        alert('Cliente deletado com sucesso!');
+        if(response.status === 400){
+            alert('error:', response.data);
+        }
+
+        alert('Produto deletado com sucesso!');
     }
 
     return (
         <div className='main'>
             <header className='header'>
                 <h3><a className='home' href='/home'>{name}</a></h3>
-                <Link className='button' to="/cliente/create"><FiPlus /> Cadastrar Cliente</Link>
+                <Link className='button' to="/Estoque/create"><FiPlus /> Cadastrar Estoque</Link>
             </header>
 
-            <h2 className='title'>Cliente</h2>
+            <h2 className='title'>Estoque</h2>
 
             <div className='tb'>
                 <table className='table'>
@@ -53,29 +63,23 @@ export default function Clientes({ history }) {
                     <tr className='table' >
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>Telefone</th>
-                        <th>E-mail</th>
-                        <th>cpf/cnpj</th>
-                        <th>Rua</th>
-                        <th>Número</th>
-                        <th>cidade</th>
-                        <th>estado</th>
+                        <th>quantidade</th>
+                        <th>Localização</th>
+                        <th>Validade</th>
+                        <th>Data de Cadastro</th>
                         <th>editar</th>
                         <th>deletar</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {clientes.map(value => (
+                    {Estoque.map((value, index) => (
                         <tr className='table' key={value.id}>
                             <td>{value.id}</td>
                             <td>{value.nome}</td>
-                            <td>{value.telefone}</td>
-                            <td>{value.email}</td>
-                            <td>{value.cpf}</td>
-                            <td>{value.Rua}</td>
-                            <td>{value.numero}</td>
-                            <td>{value.cidade}</td>
-                            <td>{value.estado}</td>
+                            <td>{value.quantidade}</td>
+                            <td>{value.localizacao}</td>
+                            <td>{moment(value.dataVencimento).format('DD/MM/YYYY')}</td>
+                            <td>{moment(value.created_at).format('DD/MM/YYYY')}</td>
                             <td><button className='ed' onClick={() => editar(value.id)}><FiFileText /></button></td>
                             <td><button className='del' onClick={() => deletar(value.id)} ><FiTrash2 /></button></td>
                         </tr>
@@ -86,3 +90,5 @@ export default function Clientes({ history }) {
         </div>
     );
 }
+
+

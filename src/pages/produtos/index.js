@@ -33,12 +33,6 @@ export default function Produtos({ history }) {
         history.push('/produto/edit');
     }
 
-    async function addEstoque(id_estoque) {
-        await localStorage.setItem('idEstoque', id_estoque);
-
-        history.push('/produto/estoque');
-    }
-
     async function deletar(id) {
         await api.delete(`/produtos?id=${id}`, {
             headers: {
@@ -67,7 +61,6 @@ export default function Produtos({ history }) {
                         <th>Preço</th>
                         <th>Comissão</th>
                         <th>Descrição</th>
-                        <th>Estoque</th>
                         <th><FiPlus /> Estoque</th>
                         <th>editar</th>
                         <th>deletar</th>
@@ -81,8 +74,6 @@ export default function Produtos({ history }) {
                             <td>{value.price}</td>
                             <td>{value.commission}%</td>
                             <td>{value.description}</td>
-                            <td>{value.quantidade}</td>
-                            <td><button className={'ed'} onClick={() => addEstoque(value.id_estoque)}><FiPlus/> Estoque</button></td>
                             <td><button className='ed' onClick={() => editar(value.id)}><FiFileText /></button></td>
                             <td><button className='del' onClick={() => deletar(value.id)} ><FiTrash2 /></button></td>
                         </tr>

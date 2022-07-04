@@ -9,14 +9,12 @@ export default function CreateProduto({ history }) {
     const [nnome, setNome] = useState('');
     const [price, setPrice] = useState();
     const [commission, setCommission] = useState();
-    const [quantidade, setQuantidade] = useState();
     const [description, setDescription] = useState('');
 
     const data = {
         nome: nnome,
         price: Number(price),
         commission: Number(commission),
-        quantidade: Number(quantidade),
         description
         };
 
@@ -52,7 +50,6 @@ export default function CreateProduto({ history }) {
                     <input type='text' value={nnome} onChange={e => setNome(e.target.value)} placeholder={'Nome do Produto'}/>
                     <input type='text' value={price} onChange={e => setPrice(e.target.value)} placeholder={'Preço: 1.5'} />
                     <input type='text' value={commission} onChange={e => setCommission(e.target.value)} placeholder={'Comissão: 1'}/>
-                    <input value={quantidade} onChange={e => setQuantidade(e.target.value)} placeholder={'Quantidade Inicial'}/>
                     <input value={description} onChange={e => setDescription(e.target.value)} placeholder={'Descrição'}/>
                     <button className='button' type='submit'><FiPlus /> Cadastrar Produto</button>
                 </form>
