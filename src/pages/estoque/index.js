@@ -31,7 +31,7 @@ export default function Estoque({ history }) {
     async function editar(id) {
         await localStorage.setItem('idEstoque', id);
 
-        history.push('/produto/edit');
+        history.push('/estoque/edit');
     }
 
     async function deletar(id) {
@@ -41,18 +41,14 @@ export default function Estoque({ history }) {
             }
         });
 
-        if(response.status === 400){
-            alert('error:', response.data);
-        }
-
-        alert('Produto deletado com sucesso!');
+        alert(response[0].data);
     }
 
     return (
         <div className='main'>
             <header className='header'>
                 <h3><a className='home' href='/home'>{name}</a></h3>
-                <Link className='button' to="/Estoque/create"><FiPlus /> Cadastrar Estoque</Link>
+                <Link className='button' to="/estoque/add"><FiPlus /> Cadastrar Estoque</Link>
             </header>
 
             <h2 className='title'>Estoque</h2>

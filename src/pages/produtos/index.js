@@ -61,7 +61,6 @@ export default function Produtos({ history }) {
                         <th>Preço</th>
                         <th>Comissão</th>
                         <th>Descrição</th>
-                        <th><FiPlus /> Estoque</th>
                         <th>editar</th>
                         <th>deletar</th>
                     </tr>

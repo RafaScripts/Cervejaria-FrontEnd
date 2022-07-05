@@ -40,7 +40,8 @@ const items = [
     <Link className='item' to='/funcionarios' >Funcionarios</Link>,
     <Link className='item' to={'/clientes'}>Clientes</Link>,
     <Link className='item' to='/equipes' >Equipes</Link>,
-    <Link className='item' to='/produtos' >Produtos</Link>
+    <Link className='item' to='/produtos' >Produtos</Link>,
+    <Link className='item' to='/estoque' >estoque</Link>
 ];
 
 export default function Home({history}){
